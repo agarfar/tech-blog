@@ -39,11 +39,15 @@ router.get('/posts/:id', withAuth, async (req, res) => {
           model: User,
           attributes: ['name'],
         },
+        {
+          model: Comment,
+          attributes: ['content']
+        }
       ],
     });
 
     const post = postData.get({ plain: true });
-
+    console.log('post', post);
     res.render('post', {
       ...post,
       logged_in: req.session.logged_in
@@ -63,7 +67,7 @@ router.get('/comments/:id', withAuth, async (req, res) => {
         },
         {
           model: Post,
-          attributes: ['title','content']
+          attributes: ['title', 'content']
         }
       ],
     });
