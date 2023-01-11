@@ -31,7 +31,7 @@ router.get('/', async (req, res) => {
   }
 });
 
-router.get('/posts/:id', withAuth, async (req, res) => {
+router.get('/posts/:id', async (req, res) => {
   try {
     const postData = await Post.findByPk(req.params.id, {
       include: [
@@ -41,7 +41,7 @@ router.get('/posts/:id', withAuth, async (req, res) => {
         },
         {
           model: Comment,
-          attributes: ['content'],
+          attributes: ['content', 'date_created'],
           include: [{
             model: User,
             attributes: ['name'],
@@ -61,7 +61,7 @@ router.get('/posts/:id', withAuth, async (req, res) => {
   }
 });
 
-router.get('/comments/:id', withAuth, async (req, res) => {
+router.get('/comments/:id', async (req, res) => {
   try {
     const commentData = await Comment.findByPk(req.params.id, {
       include: [
@@ -89,6 +89,25 @@ router.get('/comments/:id', withAuth, async (req, res) => {
 });
 
 // Use withAuth middleware to prevent access to route
+// router.get('/profile', withAuth, async (req, res) => {
+//   try {
+//     // Find the logged in user based on the session ID
+//     const userData = await User.findByPk(req.session.user_id, {
+//       attributes: { exclude: ['password'] },
+//       include: [{ model: Post }],
+//     });
+
+//     const user = userData.get({ plain: true });
+
+//     res.render('profile', {
+//       ...user,
+//       logged_in: true
+//     });
+//   } catch (err) {
+//     res.status(500).json(err);
+//   }
+// });
+
 router.get('/profile', withAuth, async (req, res) => {
   try {
     // Find the logged in user based on the session ID
@@ -99,7 +118,7 @@ router.get('/profile', withAuth, async (req, res) => {
 
     const user = userData.get({ plain: true });
 
-    res.render('profile', {
+    res.render('dashboard', {
       ...user,
       logged_in: true
     });
@@ -117,5 +136,20 @@ router.get('/login', (req, res) => {
 
   res.render('login');
 });
+
+router.get('/new-post', (req, res) => {
+  try {
+    if (req.session.logged_in) {
+      res.render('new-post', {
+        logged_in: true
+      });
+      return;
+    }
+  }
+  catch {
+    res.status(500).json(err);
+  }
+
+})
 
 module.exports = router;
