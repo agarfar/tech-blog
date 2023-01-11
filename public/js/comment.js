@@ -52,10 +52,10 @@ const commentButton = async (event) => {
   });
 
   if (response.ok) {
-    // document.location.replace('/profile');
-    alert('Response ok');
+    document.location.replace(`/posts/${id}`);
+    // alert('Response ok');
   } else {
-    alert('Failed to comment ');
+    alert('Failed to comment');
   }
 
   // }

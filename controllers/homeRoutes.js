@@ -41,7 +41,11 @@ router.get('/posts/:id', withAuth, async (req, res) => {
         },
         {
           model: Comment,
-          attributes: ['content']
+          attributes: ['content'],
+          include: [{
+            model: User,
+            attributes: ['name'],
+          }],
         }
       ],
     });
@@ -73,6 +77,7 @@ router.get('/comments/:id', withAuth, async (req, res) => {
     });
 
     const comment = commentData.get({ plain: true });
+    console.log('comment', { comment });
 
     res.render('comment', {
       ...comment,

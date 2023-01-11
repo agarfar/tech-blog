@@ -7,7 +7,7 @@
   {{#each comments as |comment|}}
   <div class="flex-column">
     <p>{{comment.content}}</p>
-    <p>Created by {{user.name}}</p>
+    <p>Created by {{comment.user.name}}</p>
   </div>
   {{/each}}
   {{/if}}
