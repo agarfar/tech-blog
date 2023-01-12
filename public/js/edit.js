@@ -1,0 +1,64 @@
+const title = document.querySelector('#post-name').value;
+// const needed_funding = document.querySelector('#posts-funding').value.trim();
+const content = document.querySelector('#post-desc').value;
+
+const id = document.querySelector('#id').value;
+
+
+const editPost = async (event) => {
+  event.preventDefault();
+
+  const response = await fetch(`/posts/${id}`, {
+    method: 'PUT',
+    body: JSON.stringify({ title, content }),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+
+  if (response.ok) {
+    document.location.replace(`/posts/${id}`);
+  } else {
+    alert('Failed to edit post');
+  }
+};
+
+const delButtonHandler = async (event) => {
+  // if (event.target.hasAttribute('#id')) {
+  // const id = event.target.getAttribute('#id');
+
+  const response = await fetch(`/posts/${id}`, {
+    method: 'DELETE',
+  });
+
+  if (response.ok) {
+    document.location.replace('/dashboard');
+  } else {
+    alert('Failed to delete post');
+  }
+  // }
+};
+
+// if (title && content) {
+//   const response = await fetch(`/api/posts`, {
+//     method: 'POST',
+//     body: JSON.stringify({ title, content }),
+//     headers: {
+//       'Content-Type': 'application/json',
+//     },
+//   });
+
+//   if (response.ok) {
+//     document.location.replace('/dashboard');
+//   } else {
+//     alert('Failed to create post');
+//   }
+// }
+
+document
+  .querySelector('#delete')
+  .addEventListener('click', delButtonHandler);
+
+document
+  .querySelector('.new-post-form')
+  .addEventListener('submit', editPost);
