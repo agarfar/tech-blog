@@ -29,6 +29,7 @@ const delButtonHandler = async (event) => {
 
   const response = await fetch(`/posts/${id}`, {
     method: 'DELETE',
+    headers: { 'Content-Type': 'application/json' },
   });
 
   if (response.ok) {
