@@ -1,20 +1,20 @@
-const title = document.querySelector('#post-name').value;
-// const needed_funding = document.querySelector('#posts-funding').value.trim();
-const content = document.querySelector('#post-desc').value;
 
 const id = document.querySelector('#id').value;
 
-
 const editPost = async (event) => {
   event.preventDefault();
+  
+  const title = document.querySelector('#post-name').value.trim();
+  // const needed_funding = document.querySelector('#posts-funding').value.trim();
+  const content = document.querySelector('#post-desc').value.trim();
 
-  const response = await fetch(`/posts/${id}`, {
+  const response = await fetch(`/api/posts/${id}`, {
     method: 'PUT',
     body: JSON.stringify({ title, content }),
-    headers: {
-      'Content-Type': 'application/json',
-    },
+    headers: { 'Content-Type': 'application/json', },
   })
+
+  console.log(response);
 
   if (response.ok) {
     document.location.replace(`/posts/${id}`);
@@ -27,11 +27,12 @@ const delButtonHandler = async (event) => {
   // if (event.target.hasAttribute('#id')) {
   // const id = event.target.getAttribute('#id');
 
-  const response = await fetch(`/posts/${id}`, {
+  const response = await fetch(`/api/posts/${id}`, {
     method: 'DELETE',
     headers: { 'Content-Type': 'application/json' },
   });
 
+  console.log(response)
   if (response.ok) {
     document.location.replace('/dashboard');
   } else {
