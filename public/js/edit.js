@@ -1,11 +1,12 @@
-
+// post_id value
 const id = document.querySelector('#id').value;
 
+// edits the post after user enters new title or post contents
 const editPost = async (event) => {
   event.preventDefault();
   
   const title = document.querySelector('#post-name').value.trim();
-  // const needed_funding = document.querySelector('#posts-funding').value.trim();
+ 
   const content = document.querySelector('#post-desc').value.trim();
 
   const response = await fetch(`/api/posts/${id}`, {
@@ -23,9 +24,8 @@ const editPost = async (event) => {
   }
 };
 
+// deletes current post
 const delButtonHandler = async (event) => {
-  // if (event.target.hasAttribute('#id')) {
-  // const id = event.target.getAttribute('#id');
 
   const response = await fetch(`/api/posts/${id}`, {
     method: 'DELETE',
@@ -38,24 +38,7 @@ const delButtonHandler = async (event) => {
   } else {
     alert('Failed to delete post');
   }
-  // }
 };
-
-// if (title && content) {
-//   const response = await fetch(`/api/posts`, {
-//     method: 'POST',
-//     body: JSON.stringify({ title, content }),
-//     headers: {
-//       'Content-Type': 'application/json',
-//     },
-//   });
-
-//   if (response.ok) {
-//     document.location.replace('/dashboard');
-//   } else {
-//     alert('Failed to create post');
-//   }
-// }
 
 document
   .querySelector('#delete')

@@ -1,8 +1,9 @@
+// creates new post when user hits 'create' button
 const createNewPost = async (event) => {
   event.preventDefault();
 
   const title = document.querySelector('#post-name').value.trim();
-  // const needed_funding = document.querySelector('#posts-funding').value.trim();
+
   const content = document.querySelector('#post-desc').value.trim();
 
   if (title && content) {

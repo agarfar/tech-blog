@@ -31,6 +31,7 @@ router.get('/', async (req, res) => {
   }
 });
 
+// get specific post by ID
 router.get('/posts/:id', async (req, res) => {
   try {
     const postData = await Post.findByPk(req.params.id, {
@@ -61,6 +62,7 @@ router.get('/posts/:id', async (req, res) => {
   }
 });
 
+// render edit post page for particular post
 router.get('/posts/edit/:id', async (req, res) => {
   try {
     const postData = await Post.findByPk(req.params.id, {
@@ -91,64 +93,35 @@ router.get('/posts/edit/:id', async (req, res) => {
   }
 });
 
-// router.put('posts/:id', withAuth, async (req, res) => {
-//   // try {
-//   //   const newPost = await Post.create({
-//   //     ...req.body,
-//   //     user_id: req.session.user_id,
-//   //   });
-
-//   //   res.status(200).json(newPost);
-//   // } catch (err) {
-//   //   res.status(400).json(err);
-//   // }
+// // get comments for a particular post by the post_id value
+// router.get('/comments/:id', async (req, res) => {
 //   try {
-//     const postData = await Post.update(req.body, {
-//       where: {
-//         id: req.params.id,
-//         user_id: req.session.user_id,
-//       },
+//     const commentData = await Comment.findByPk(req.params.id, {
+//       include: [
+//         {
+//           model: User,
+//           attributes: ['name'],
+//         },
+//         {
+//           model: Post,
+//           attributes: ['title', 'content']
+//         }
+//       ],
 //     });
-//     if (!postData[0]) {
-//       console.log('postData[0]', postData[0])
-//       res.status(404).json({ message: 'No post with this id!' });
-//       return;
-//     }
-//     res.status(200).json(postData);
+
+//     const comment = commentData.get({ plain: true });
+//     console.log('comment', { comment });
+
+//     res.render('comment', {
+//       ...comment,
+//       logged_in: req.session.logged_in
+//     });
 //   } catch (err) {
 //     res.status(500).json(err);
 //   }
-
 // });
 
-router.get('/comments/:id', async (req, res) => {
-  try {
-    const commentData = await Comment.findByPk(req.params.id, {
-      include: [
-        {
-          model: User,
-          attributes: ['name'],
-        },
-        {
-          model: Post,
-          attributes: ['title', 'content']
-        }
-      ],
-    });
-
-    const comment = commentData.get({ plain: true });
-    console.log('comment', { comment });
-
-    res.render('comment', {
-      ...comment,
-      logged_in: req.session.logged_in
-    });
-  } catch (err) {
-    res.status(500).json(err);
-  }
-});
-
-
+// render dashboard with list of user posts
 router.get('/dashboard', withAuth, async (req, res) => {
   try {
     // Find the logged in user based on the session ID
@@ -168,6 +141,7 @@ router.get('/dashboard', withAuth, async (req, res) => {
   }
 });
 
+// render login page
 router.get('/login', (req, res) => {
   // If the user is already logged in, redirect the request to another route
   if (req.session.logged_in) {
@@ -178,6 +152,7 @@ router.get('/login', (req, res) => {
   res.render('login');
 });
 
+// render new post page
 router.get('/new-post', (req, res) => {
   try {
     if (req.session.logged_in) {
