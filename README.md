@@ -29,6 +29,8 @@ Before running the application, make sure you have installed the packages listed
 
 After running the application with 'npm run start' or navigating to the deployed Heroku application, the user is presented with the blog homepage. From here, clicking on the 'login' link sends the user to the login/signup page, where they may create an account if they have not already done so. After logging in, the user can click on an existing post and is presented with an option to leave a comment. Clicking on the 'dashboard' link in the nav bar brings the user to their personal profile, where they may select the option to create a new post or click on one of their existing posts to either edit the content or delete the post entirely. Remaining idle in the application for too long requires the user to log back in. At any point, the user can choose to logout, at which point they are brought back to the homepage.
 
+Link to deployed application: https://peaceful-sierra-03405.herokuapp.com/
+
 ## License
 
 This project is covered under the MIT license.
