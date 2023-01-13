@@ -3,7 +3,7 @@
 
 ## Description
 
-This application allows the user to create/sign into a personal account, at which point they may create posts or leave comments on existing posts. Users signed into the application also have the option to edit or delete their own posts.
+This application allows the user to create/sign into a personal account, at which point they may create posts or leave comments on existing posts. Users signed into the application also have the option to edit or delete their own posts. Remaining idle for an extended time requires the user to log back in before being able to post or add comments. 
 
 ## Table of Contents 
 
@@ -23,7 +23,7 @@ This application allows the user to create/sign into a personal account, at whic
 
 Before running the application, make sure you have installed the packages listed in the package.json file. Navigate to the repository in the terminal and run 'npm i' to install. Make sure you have MySQL installed locally and input your database credentials - DB_USER, DB_PASSWORD, DB_NAME - in a .env file. Use the provided seeds and schema to prepopulate your database for testing.
 
-![Screenshot](assets/images/screenshot.png)
+![Tech Blog](assets/images/tech-blog.png)
 
 ## Usage
 
